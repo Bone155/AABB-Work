@@ -24,7 +24,6 @@ namespace ConsoleApp1
             triangle.MyPoints.Add(new Vector2(40, 30));
             triangle.MyPoints.Add(new Vector2(50, 10));
             triangle.position = new Vector2(100, 100);
-            AABB triBox = triangle.ab;
 
             //TODO:Create another object with a different shape
             MyShape square = new MyShape();
@@ -34,7 +33,6 @@ namespace ConsoleApp1
             square.MyPoints.Add(new Vector2(10, 50));
             square.MyPoints.Add(new Vector2(10, 10));
             square.position = new Vector2(250, 90);
-            AABB squBox = square.ab;
 
             // Main game loop
             while (!rl.WindowShouldClose())    // Detect window close button or ESC key
@@ -59,11 +57,11 @@ namespace ConsoleApp1
                 //TODO:Move the 2nd object so that it is on a collision course with the triangle
                 //TODO:Implement AABB Collision detection so you know when they hit.
                 //Recommend adding the AABB Functionality to the myshape class.
-                //Add a method to the myshape class that causes the Bounding box to be recalculated and 
+                //Add a method to the myshape class that causes the Bounding box to be recalculated and
                 //stored in the myshape class (with the corners/vectors relative to itself)
-                square.collide(triBox);
+                square.collide(triangle.ab);
 
-                //TODO:Bonus have your AABB Box drawn as a green outline to the shapes, and then turn red 
+                //TODO:Bonus have your AABB Box drawn as a green outline to the shapes, and then turn red
                 //When they collide.
 
 

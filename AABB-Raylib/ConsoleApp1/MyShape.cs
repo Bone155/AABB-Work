@@ -25,18 +25,31 @@ namespace ConsoleApp1
             }
 
             ab.Fit(MyPoints);
-            //          top left            bottom right
-            DrawLineEx(ab.min2 + position, ab.max2 + position, 3, Color.GREEN);
-            DrawLineEx(ab.min2 + position, ab.max2 + position, 3, Color.GREEN);
-            //DrawLineEx(ab.min2 - position, ab.max2 - position, 3, Color.GREEN);
-            //DrawLineEx(ab.min2 - position, ab.max2 + position, 3, Color.GREEN);
+            DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.GREEN);
+            DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.GREEN);
+            DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.GREEN);
+            DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.GREEN);
         }
 
         public void collide(AABB other)
         {
             if (ab.Overlaps(other))
             {
-                Console.WriteLine("Hit");
+                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
+            }
+        }
+
+        public void collide(MyShape other)
+        {
+            if (ab.Overlaps(other.position))
+            {
+                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
+                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
             }
         }
     }
