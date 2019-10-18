@@ -32,7 +32,7 @@ namespace ConsoleApp1
             square.MyPoints.Add(new Vector2(50, 50));
             square.MyPoints.Add(new Vector2(10, 50));
             square.MyPoints.Add(new Vector2(10, 10));
-            square.position = new Vector2(250, 90);
+            square.position = new Vector2(500, 90);
 
             // Main game loop
             while (!rl.WindowShouldClose())    // Detect window close button or ESC key
@@ -59,7 +59,7 @@ namespace ConsoleApp1
                 //Recommend adding the AABB Functionality to the myshape class.
                 //Add a method to the myshape class that causes the Bounding box to be recalculated and
                 //stored in the myshape class (with the corners/vectors relative to itself)
-                square.collide(triangle.ab);
+                square.Collide(triangle.ab);
 
                 //TODO:Bonus have your AABB Box drawn as a green outline to the shapes, and then turn red
                 //When they collide.

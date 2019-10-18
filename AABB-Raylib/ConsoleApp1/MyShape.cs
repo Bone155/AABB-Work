@@ -31,7 +31,7 @@ namespace ConsoleApp1
             DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.GREEN);
         }
 
-        public void collide(AABB other)
+        public void Collide(AABB other)
         {
             if (ab.Overlaps(other))
             {
@@ -42,7 +42,7 @@ namespace ConsoleApp1
             }
         }
 
-        public void collide(MyShape other)
+        public void Collide(MyShape other)
         {
             if (ab.Overlaps(other.position))
             {
