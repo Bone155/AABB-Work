@@ -11,7 +11,7 @@ namespace ConsoleApp1
         public Vector2 position = new Vector2();
         public List<Vector2> MyPoints = new List<Vector2>();
 
-        public AABB ab = new AABB();
+        public AABB2 boundingBox = new AABB2();
 
         public void Draw()
         {
@@ -23,34 +23,30 @@ namespace ConsoleApp1
 
                 Last = MyPoints[idx];
             }
-
-            ab.Fit(MyPoints);
-            DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.GREEN);
-            DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.GREEN);
-            DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.GREEN);
-            DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.GREEN);
+            
+            boundingBox.Center();
+            boundingBox.Extents();
+            boundingBox.Corners();
+            boundingBox.Fit(MyPoints);
+            boundingBox.max += position;
+            boundingBox.min += position;
+            //Drawing collision box
+            DrawLine((int)boundingBox.min.x, (int)boundingBox.min.y, (int)boundingBox.max.x, (int)boundingBox.min.y, Color.GREEN);
+            DrawLine((int)boundingBox.max.x, (int)boundingBox.min.y, (int)boundingBox.max.x, (int)boundingBox.max.y, Color.GREEN);
+            DrawLine((int)boundingBox.max.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.max.y, Color.GREEN);
+            DrawLine((int)boundingBox.min.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.min.y, Color.GREEN);
         }
 
-        public void Collide(AABB other)
+        public void Collide(AABB2 other)
         {
-            if (ab.Overlaps(other))
+            if (boundingBox.Overlaps(other))
             {
-                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
+                DrawLine((int)boundingBox.min.x, (int)boundingBox.min.y, (int)boundingBox.max.x, (int)boundingBox.min.y, Color.RED);
+                DrawLine((int)boundingBox.max.x, (int)boundingBox.min.y, (int)boundingBox.max.x, (int)boundingBox.max.y, Color.RED);
+                DrawLine((int)boundingBox.max.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.max.y, Color.RED);
+                DrawLine((int)boundingBox.min.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.min.y, Color.RED);
             }
         }
 
-        public void Collide(MyShape other)
-        {
-            if (ab.Overlaps(other.position))
-            {
-                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.min2.y + (int)position.y, (int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.max2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, Color.RED);
-                DrawLine((int)ab.min2.x + (int)position.x, (int)ab.max2.y + (int)position.y, (int)ab.min2.x + (int)position.x, (int)ab.min2.y + (int)position.y, Color.RED);
-            }
-        }
     }
 }
