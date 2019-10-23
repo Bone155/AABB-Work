@@ -25,7 +25,9 @@ namespace ConsoleApp1
             triangle.MyPoints.Add(new Vector2(50, 10));
             triangle.position = new Vector2(100, 100);
 
-
+            MyShape sphere = new MyShape();
+            sphere.MyPoints.Add(new Vector2(10, 10));
+            sphere.position = new Vector2(100, 320);
 
             //TODO:Create another object with a different shape
             MyShape freakyLine = new MyShape();
@@ -35,6 +37,10 @@ namespace ConsoleApp1
             freakyLine.MyPoints.Add(new Vector2(50, 20));
             freakyLine.MyPoints.Add(new Vector2(30, 30));
             freakyLine.position = new Vector2(300, 100);
+
+            MyShape sphere2 = new MyShape();
+            sphere2.MyPoints.Add(new Vector2(10, 10));
+            sphere2.position = new Vector2(300, 320);
 
             // Main game loop
             while (!rl.WindowShouldClose())    // Detect window close button or ESC key
@@ -50,11 +56,21 @@ namespace ConsoleApp1
 
                 rl.ClearBackground(Color.RAYWHITE);
 
-                //triangle.Draw();
-                //triangle.position.x += .5f;
+                triangle.Draw();
+                triangle.position.x += .5f;
+                for (int i = 0; i < triangle.MyPoints.Count; i++)
+                {
+                    triangle.MyPoints[i] = new Vector2(triangle.MyPoints[i].y / 5, triangle.MyPoints[i].x / 5);
+                }
+
+                sphere.Circle(8);
+                sphere.position.x += .5f;
 
                 freakyLine.Draw();
                 freakyLine.position.x -= .5f;
+
+                sphere2.Circle(15);
+                sphere2.position.x -= .5f;
 
                 //TODO:Move the 2nd object so that it is on a collision course with the triangle
                 //TODO:Implement AABB Collision detection so you know when they hit.
@@ -62,12 +78,14 @@ namespace ConsoleApp1
                 //Add a method to the myshape class that causes the Bounding box to be recalculated and
                 //stored in the myshape class (with the corners/vectors relative to itself)
 
-                //freakyLine.Collide(triangle.boundingBox);
-                //triangle.Collide(freakyLine.boundingBox);
-                //freakyLine.CollisionCheck(freakyLine.boundingBox.Overlaps(triangle.boundingBox));
+                freakyLine.boxVSbox(triangle.boundingBox);
+                triangle.boxVSbox(freakyLine.boundingBox);
+ 
 
                 //Spheres
-
+                //sphere.circleVSbox(freakyLine.boundingBox);
+                sphere.circleVScircle(sphere2.sphere);
+                sphere2.circleVScircle(sphere.sphere);
 
                 //TODO:Bonus have your AABB Box drawn as a green outline to the shapes, and then turn red
                 //When they collide.

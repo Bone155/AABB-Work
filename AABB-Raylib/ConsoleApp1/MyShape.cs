@@ -13,12 +13,14 @@ namespace ConsoleApp1
 
         public AABB2 boundingBox = new AABB2();
 
+        public Sphere2D sphere;
+
         public void Draw()
         {
             Vector2 Last = new Vector2(); 
             for(int idx = 0; idx < MyPoints.Count; idx++)
             {
-                if(idx>0)
+                if(idx > 0)
                     DrawLineEx(position+Last, position+MyPoints[idx], 2, Color.BLACK);
 
                 Last = MyPoints[idx];
@@ -37,7 +39,17 @@ namespace ConsoleApp1
             DrawLine((int)boundingBox.min.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.min.y, Color.GREEN);
         }
 
-        public void Collide(AABB2 other)
+        public void Circle(float r)
+        {
+            sphere = new Sphere2D(position, r);
+
+            DrawCircleLines((int)sphere.center.x, (int)sphere.center.y, sphere.radius, Color.BLACK);
+
+            // Collision circle
+            DrawCircleLines((int)sphere.center.x, (int)sphere.center.y, sphere.radius, Color.GREEN);
+        }
+
+        public void boxVSbox(AABB2 other)
         {
             if (boundingBox.Overlaps(other))
             {
@@ -45,6 +57,22 @@ namespace ConsoleApp1
                 DrawLine((int)boundingBox.max.x, (int)boundingBox.min.y, (int)boundingBox.max.x, (int)boundingBox.max.y, Color.RED);
                 DrawLine((int)boundingBox.max.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.max.y, Color.RED);
                 DrawLine((int)boundingBox.min.x, (int)boundingBox.max.y, (int)boundingBox.min.x, (int)boundingBox.min.y, Color.RED);
+            }
+        }
+
+        public void circleVSbox(AABB2 other)
+        {
+            if (sphere.Overlaps(other))
+            {
+                DrawCircleLines((int)sphere.center.x, (int)sphere.center.y, sphere.radius, Color.RED);
+            }
+        }
+
+        public void circleVScircle(Sphere2D other)
+        {
+            if (sphere.Overlaps(other))
+            {
+                DrawCircleLines((int)sphere.center.x, (int)sphere.center.y, sphere.radius, Color.RED);
             }
         }
 

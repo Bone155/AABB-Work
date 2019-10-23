@@ -7,8 +7,8 @@ namespace ConsoleApp1
 {
     class Sphere2D
     {
-        Vector2 center;
-        float radius;
+        public Vector2 center;
+        public float radius;
 
         public Sphere2D()
         {
@@ -69,7 +69,7 @@ namespace ConsoleApp1
             return diff.MagnitudeSqr() <= (r * r);
         }
 
-        public bool Overlaps(AABB aabb)
+        public bool Overlaps(AABB2 aabb)
         {
             Vector2 diff = aabb.ClosestPoint(center) - center;
             return diff.Dot(diff) <= (radius * radius);
